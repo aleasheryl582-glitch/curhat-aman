@@ -1,5 +1,4 @@
 # curhat-aman
-website edukasi stress belajar remaja
 <!DOCTYPE html>
 <html lang="id">
 <head>
