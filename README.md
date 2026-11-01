@@ -214,14 +214,10 @@ tampilkanRiwayat();
 <section class="kontak-curhat">
   <h2>Butuh Teman Bercerita?</h2>
   <p>Kami siap mendengarkan ceritamu.</p>
-  <a href="https://wa.me/6281234567890"
+ 
+  <a href="https://wa.me/6281282961858"
      target="_blank">
     WhatsApp Guru BK
-  </a>
-  <a href="https://www.healing119.id/"
-     target="_blank">
-    Hotline Healing119
-  </a>
-  <p>Telepon: 119 ekstensi 8</p>
+    </a>
 </section>
 </html>
