@@ -102,6 +102,113 @@ document.getElementById('copyScript').addEventListener('click',async()=>{
  button.insertAdjacentElement('afterend',box);
  box.scrollIntoView({behavior:'smooth',block:'center'});
 });
+ // FITUR PENYIMPANAN CURHAT
+const STORAGE_KEY = 'curhatAmanRiwayat';
+
+const curhatForm = document.getElementById('curhatForm');
+const daftarCurhat = document.getElementById('daftarCurhat');
+const hapusRiwayat = document.getElementById('hapusRiwayat');
+
+function ambilRiwayat() {
+    try {
+        return JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+    } catch (error) {
+        return [];
+    }
+}
+
+function tampilkanRiwayat() {
+    const riwayat = ambilRiwayat();
+
+    daftarCurhat.replaceChildren();
+
+    if (riwayat.length === 0) {
+        const kosong = document.createElement('div');
+        kosong.className = 'card';
+        kosong.textContent = 'Belum ada curhatan yang disimpan.';
+        daftarCurhat.appendChild(kosong);
+        return;
+    }
+
+    riwayat.forEach(function(item) {
+        const card = document.createElement('article');
+        card.className = 'card';
+        card.style.marginBottom = '15px';
+
+        const kategori = document.createElement('span');
+        kategori.className = 'pill';
+        kategori.textContent = item.kategori;
+
+        const tanggal = document.createElement('p');
+        tanggal.className = 'small muted';
+        tanggal.textContent = item.tanggal;
+
+        const isi = document.createElement('p');
+        isi.style.whiteSpace = 'pre-wrap';
+        isi.textContent = item.isi;
+
+        card.appendChild(kategori);
+        card.appendChild(tanggal);
+        card.appendChild(isi);
+
+        daftarCurhat.appendChild(card);
+    });
+}
+
+// SIMPAN CURHAT
+curhatForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const kategori = document.getElementById('kategori').value;
+    const isi = document.getElementById('isiCurhat').value.trim();
+
+    if (!kategori || !isi) {
+        alert('Silakan lengkapi kategori dan cerita terlebih dahulu.');
+        return;
+    }
+
+    const riwayat = ambilRiwayat();
+
+    riwayat.unshift({
+        kategori: kategori,
+        isi: isi,
+        tanggal: new Date().toLocaleString('id-ID')
+    });
+
+    try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(riwayat));
+
+        alert('Curhatan berhasil disimpan 💙');
+
+        curhatForm.reset();
+        tampilkanRiwayat();
+
+        document.getElementById('riwayat').scrollIntoView({
+            behavior: 'smooth'
+        });
+
+    } catch (error) {
+        alert('Curhatan belum bisa disimpan. Penyimpanan browser mungkin penuh atau tidak tersedia.');
+    }
+});
+
+// HAPUS SEMUA RIWAYAT
+hapusRiwayat.addEventListener('click', function() {
+    const yakin = confirm('Apakah kamu yakin ingin menghapus semua riwayat curhat?');
+
+    if (yakin) {
+        try {
+            localStorage.removeItem(STORAGE_KEY);
+            tampilkanRiwayat();
+            alert('Riwayat curhat berhasil dihapus.');
+        } catch (error) {
+            alert('Riwayat belum berhasil dihapus.');
+        }
+    }
+});
+
+// TAMPILKAN RIWAYAT SAAT WEBSITE DIBUKA
+tampilkanRiwayat();
 </script>
 </body>
 <section class="kontak-curhat">
