@@ -217,11 +217,5 @@ document.getElementById('copyScript').addEventListener('click',async()=>{
   <a href="https://wa.me/6281282961858"
      target="_blank">
     WhatsApp Guru BK
-  </a>
-  <a href="https://www.healing119.id/"
-     target="_blank">
-    Hotline Healing119
-  </a>
-  <p>Telepon: 119 ekstensi 8</p>
 </section>
 </html>
